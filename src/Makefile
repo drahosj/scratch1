@@ -1,11 +1,11 @@
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
 
-OBJECTS=main.o system_stm32f4xx.o startup_stm32f411xe.o
+OBJECTS=main.o system_stm32f4xx.o startup_stm32f411xe.o usart.o
 
 CMSIS_ROOT=/opt/cross/stm32f4/Drivers/CMSIS
 
-IFLAGS=-Iinc/
+IFLAGS=-I../inc/
 IFLAGS+= -I$(CMSIS_ROOT)/Device/ST/STM32F4xx/Include/
 IFLAGS+= -I$(CMSIS_ROOT)/Include
 

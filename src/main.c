@@ -57,6 +57,10 @@ static void setupPeripherals()
     bitSet(GPIOA->MODER, GPIO_MODER_MODER3_1);
     bitClear(GPIOA->MODER, GPIO_MODER_MODER2_0);
     bitClear(GPIOA->MODER, GPIO_MODER_MODER3_0);
+    /*bitSet(GPIOA->MODER, GPIO_MODER_MODER2_0);
+    bitSet(GPIOA->MODER, GPIO_MODER_MODER3_9);
+    bitClear(GPIOA->MODER, GPIO_MODER_MODER2_1);
+    bitClear(GPIOA->MODER, GPIO_MODER_MODER3_1);
     
     /* AF=7 */
     GPIOA->AFR[0] |= (7 << 8);
@@ -90,7 +94,7 @@ void SysTick_Handler()
     {
         GPIOA->BSRRH = GPIO_BSRR_BS_5;
         GPIOA->BSRRH = GPIO_BSRR_BS_6;
-        //usart_putc( USART2, 'a');
+        usart_putc( USART2, 'a');
     }
     if (systick_count >= 2)
     {

@@ -65,8 +65,6 @@ static void setupPeripherals()
     /* AF=7 */
     GPIOA->AFR[0] |= (7 << 8);
     GPIOA->AFR[0] |= (7 << 12);
-    GPIOA->AFR[1] |= (7 << 8);
-    GPIOA->AFR[1] |= (7 << 12);
     
     /* OTYPE = PP (0) */
     bitClear(GPIOA->OTYPER, GPIO_OTYPER_OT_2);

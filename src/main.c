@@ -5,6 +5,7 @@
 #include <stm32f4xx.h>
 #include "usart.h"
 #include "gpio.h"
+#include "string.h"
 
 /* LED is on PA5 */
 
@@ -52,21 +53,25 @@ static void setupPeripherals()
 }
 void SysTick_Handler()
 {
+    uint8_t testBuffer[16];
+    int16_t len = 0;
+    
     systick_count++;
     if (systick_count == 1)
     {
         GPIOA->BSRRH = GPIO_BSRR_BS_5;
         GPIOA->BSRRH = GPIO_BSRR_BS_6;
-        usart_putc( USART2, 'a');
-        usart_putc( USART2, 'b');
-        usart_putc( USART2, 'c');
-        usart_putc( USART2, 'd');
-        usart_putc( USART2, 'e');
-        usart_putc( USART2, 'f');
-        usart_putc( USART2, '\r');
-        usart_putc( USART2, '\n');
+        usart_print(USART2, "TEST!\r\n", strlen("TEST!\r\n"));
+        usart_print(USART2, testBuffer, len);
     }
-    if (systick_count >= 2)
+    if (systick_count == 3)
+    {
+        //len = usart_gets(USART2, testBuffer, 4);
+        len = 1;
+        usart_getc(USART2, testBuffer);
+        
+    }
+    if (systick_count >= 4)
     {
         GPIOA->BSRRL = GPIO_BSRR_BS_5;
         GPIOA->BSRRL = GPIO_BSRR_BS_6;

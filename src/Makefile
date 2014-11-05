@@ -1,7 +1,7 @@
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
 
-OBJECTS=main.o system_stm32f4xx.o startup_stm32f411xe.o usart.o
+OBJECTS=main.o system_stm32f4xx.o startup_stm32f411xe.o usart.o gpio.o
 
 CMSIS_ROOT=/opt/cross/stm32f4/Drivers/CMSIS
 

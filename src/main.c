@@ -4,6 +4,7 @@
 
 #include <stm32f4xx.h>
 #include "usart.h"
+#include "gpio.h"
 
 #define bitSet(reg, bit) (reg |= bit)
 #define bitClear(reg, bit) (reg &= (~bit))
@@ -30,20 +31,8 @@ static void setupPeripherals()
     /*Enable clock to GPIOA*/
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
     
-    bitClear(GPIOA->MODER, GPIO_MODER_MODER5_1);
-    bitClear(GPIOA->MODER, GPIO_MODER_MODER6_1);
-    
-    bitSet(GPIOA->MODER, GPIO_MODER_MODER5_0);
-    bitSet(GPIOA->MODER, GPIO_MODER_MODER6_0);
-    
-    bitClear(GPIOA->OTYPER, GPIO_OTYPER_OT_5);
-    bitClear(GPIOA->OTYPER, GPIO_OTYPER_OT_6);
-    
-    bitClear(GPIOA->OSPEEDR, (GPIO_OSPEEDER_OSPEEDR5_0 | GPIO_OSPEEDER_OSPEEDR5_1));
-    bitClear(GPIOA->OSPEEDR, (GPIO_OSPEEDER_OSPEEDR6_0 | GPIO_OSPEEDER_OSPEEDR6_1));
-    
-    bitClear(GPIOA->PUPDR, (GPIO_PUPDR_PUPDR5_0 | GPIO_PUPDR_PUPDR5_1));
-    bitClear(GPIOA->PUPDR, (GPIO_PUPDR_PUPDR6_0 | GPIO_PUPDR_PUPDR6_1));
+    setup_gpio_output(GPIOA, 5);
+    setup_gpio_output(GPIOA, 6);
     
     /* Configure GPIOA for UART2 */
     /* Pull-up (01) */

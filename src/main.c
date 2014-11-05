@@ -6,9 +6,6 @@
 #include "usart.h"
 #include "gpio.h"
 
-#define bitSet(reg, bit) (reg |= bit)
-#define bitClear(reg, bit) (reg &= (~bit))
-
 /* LED is on PA5 */
 
 static void setupPeripherals();
@@ -35,44 +32,23 @@ static void setupPeripherals()
     setup_gpio_output(GPIOA, 6);
     
     /* Configure GPIOA for UART2 */
-    /* Pull-up (01) */
-    bitSet(GPIOA->PUPDR, GPIO_PUPDR_PUPDR2_0);
-    bitSet(GPIOA->PUPDR, GPIO_PUPDR_PUPDR3_0);
-    bitClear(GPIOA->PUPDR, GPIO_PUPDR_PUPDR2_1);
-    bitClear(GPIOA->PUPDR, GPIO_PUPDR_PUPDR3_1);
     
-    /* Mode = AF (10) */
-    bitSet(GPIOA->MODER, GPIO_MODER_MODER2_1);
-    bitSet(GPIOA->MODER, GPIO_MODER_MODER3_1);
-    bitClear(GPIOA->MODER, GPIO_MODER_MODER2_0);
-    bitClear(GPIOA->MODER, GPIO_MODER_MODER3_0);
-    /*bitSet(GPIOA->MODER, GPIO_MODER_MODER2_0);
-    bitSet(GPIOA->MODER, GPIO_MODER_MODER3_9);
-    bitClear(GPIOA->MODER, GPIO_MODER_MODER2_1);
-    bitClear(GPIOA->MODER, GPIO_MODER_MODER3_1);
+    setup_gpio_af_pu(GPIOA, 2);
+    setup_gpio_af_pu(GPIOA, 3);
     
     /* AF=7 */
     GPIOA->AFR[0] |= (7 << 8);
     GPIOA->AFR[0] |= (7 << 12);
-    
-    /* OTYPE = PP (0) */
-    bitClear(GPIOA->OTYPER, GPIO_OTYPER_OT_2);
-    bitClear(GPIOA->OTYPER, GPIO_OTYPER_OT_3);
-    
-    /* OSPEED = High Speed */
-    bitSet(GPIOA->OSPEEDR, GPIO_OSPEEDER_OSPEEDR2_0);
-    bitSet(GPIOA->OSPEEDR, GPIO_OSPEEDER_OSPEEDR3_0);
-    bitSet(GPIOA->OSPEEDR, GPIO_OSPEEDER_OSPEEDR2_1);
-    bitSet(GPIOA->OSPEEDR, GPIO_OSPEEDER_OSPEEDR3_1);
     
     /* Enable USART2 in RCC */
     RCC->APB1ENR |= RCC_APB1ENR_USART2EN;
     
     /* Configure and enable UART2 */
     initialize_usart(USART2);
+    NVIC_EnableIRQ(USART2_IRQn);
     
     /* SysTick */
-    SysTick_Config(SystemCoreClock/4);
+    SysTick_Config(SystemCoreClock/1);
 }
 void SysTick_Handler()
 {
@@ -82,6 +58,13 @@ void SysTick_Handler()
         GPIOA->BSRRH = GPIO_BSRR_BS_5;
         GPIOA->BSRRH = GPIO_BSRR_BS_6;
         usart_putc( USART2, 'a');
+        usart_putc( USART2, 'b');
+        usart_putc( USART2, 'c');
+        usart_putc( USART2, 'd');
+        usart_putc( USART2, 'e');
+        usart_putc( USART2, 'f');
+        usart_putc( USART2, '\r');
+        usart_putc( USART2, '\n');
     }
     if (systick_count >= 2)
     {

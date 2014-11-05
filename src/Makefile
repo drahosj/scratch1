@@ -1,5 +1,6 @@
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
+OBJDUMP=arg-none-eabi-objdump
 
 OBJECTS=main.o system_stm32f4xx.o startup_stm32f411xe.o usart.o gpio.o
 
@@ -24,6 +25,7 @@ ASFLAGS= -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g
 
 image.elf: $(OBJECTS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -T ../stm32f411re.ld -o image.elf $(OBJECTS)
+	objdump -dl image.elf > image.elf.objdump
 	
 all: image.elf
 

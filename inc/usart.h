@@ -1,7 +1,6 @@
-
-
-#include <stdint.h>
 #include <stm32f4xx.h>
+#include "common.h"
 
-int8_t initialize_usart(USART_TypeDef *);
-void usart_putc(USART_TypeDef *, uint8_t);
+status_t initialize_usart(USART_TypeDef *);
+status_t usart_putc(USART_TypeDef *, uint8_t);
+status_t usart_send_byte(USART_TypeDef *);

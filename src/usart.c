@@ -3,7 +3,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-#define RINGBUFFER_SIZE 64
+#define RINGBUFFER_SIZE 1024
 
 static uint8_t txBuffer[RINGBUFFER_SIZE];
 static uint8_t rxBuffer[RINGBUFFER_SIZE];

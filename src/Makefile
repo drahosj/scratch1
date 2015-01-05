@@ -1,10 +1,13 @@
+#Only two variables that need to be tweaked
+#List of object files to compile
+OBJECTS=main.o system_stm32f4xx.o startup_stm32f411xe.o usart.o gpio.o
+#Root directory of CMSIS
+CMSIS_ROOT=/opt/cross/stm32f4/Drivers/CMSIS
+
+
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
 OBJDUMP=arg-none-eabi-objdump
-
-OBJECTS=main.o system_stm32f4xx.o startup_stm32f411xe.o usart.o gpio.o
-
-CMSIS_ROOT=/opt/cross/stm32f4/Drivers/CMSIS
 
 IFLAGS=-I../inc/
 IFLAGS+= -I$(CMSIS_ROOT)/Device/ST/STM32F4xx/Include/
